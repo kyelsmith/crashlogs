@@ -11,6 +11,13 @@ view: crashlogs {
     sql: ${TABLE}.computer_name ;;
   }
 
+  dimension: computer_name_site {
+    type: string
+    sql: IF(SUBSTRING(${TABLE}.computer_name, 6, 1) = "-",
+          LEFT(${TABLE}.computer_name,5),
+          ${TABLE}.computer_name);;
+  }
+
   dimension_group: error_occurred {
     type: time
     timeframes: [
@@ -57,6 +64,11 @@ view: crashlogs {
 
   measure: count {
     type: count
-    drill_fields: [foldername, game_name, computer_name]
+    drill_fields: [analysis_version, computer_name, error_occurred_time, foldername, game_name, game_version, memory_in_use, site_id, zendesk_ticket_id]
+  }
+
+  measure: max {
+    type: max
+    drill_fields: [analysis_version, computer_name, error_occurred_time, foldername, game_name, game_version, memory_in_use, site_id, zendesk_ticket_id]
   }
 }
