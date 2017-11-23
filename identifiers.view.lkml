@@ -7,9 +7,9 @@ view: identifiers {
     sql: ${TABLE}.identifier_id ;;
   }
 
-  dimension: filename {
-    type: string
-    sql: ${TABLE}.filename ;;
+  dimension: zendesk_ticket_id {
+    type: number
+    sql: ${TABLE}.zendesk_ticket_id ;;
   }
 
   dimension: string {
@@ -17,13 +17,21 @@ view: identifiers {
     sql: ${TABLE}.string ;;
   }
 
-  dimension: zendesk_ticket_id {
-    type: number
-    sql: ${TABLE}.zendesk_ticket_id ;;
+  dimension: filename {
+    type: string
+    sql: ${TABLE}.filename ;;
   }
+
+  dimension: edit_distance {
+    type: string
+    sql: ${TABLE}.edit_distance ;;
+  }
+
+
+
 
   measure: count {
     type: count
-    drill_fields: [identifier_id, filename]
+    drill_fields: [identifier_id, zendesk_ticket_id, edit_distance, filename, string]
   }
 }

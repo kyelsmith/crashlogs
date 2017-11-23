@@ -1,6 +1,11 @@
 view: zendesk_problems {
   sql_table_name: crashlogs.zendesk_problems ;;
 
+  dimension: zendesk_ticket_id {
+    type: number
+    sql: ${TABLE}.zendesk_ticket_id ;;
+  }
+
   dimension_group: date_created {
     type: time
     timeframes: [
@@ -34,9 +39,14 @@ view: zendesk_problems {
     sql: ${TABLE}.description ;;
   }
 
-  dimension: zendesk_ticket_id {
+  dimension: severity_multiplier {
     type: number
-    sql: ${TABLE}.zendesk_ticket_id ;;
+    sql: ${TABLE}.severity_multiplier ;;
+  }
+
+  dimension: stack_trace_example {
+    type: string
+    sql: ${TABLE}.stack_trace_example ;;
   }
 
   measure: count {
