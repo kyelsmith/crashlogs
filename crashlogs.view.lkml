@@ -1,14 +1,20 @@
 view: crashlogs {
   sql_table_name: crashlogs.crashlogs ;;
 
-  dimension: foldername {
-    type: string
-    sql: ${TABLE}.foldername ;;
+  dimension: crashlog_id {
+    primary_key: yes
+    type: number
+    sql: ${TABLE}.crashlog_id ;;
   }
 
   dimension: analysis_version {
     type: number
     sql: ${TABLE}.analysis_version ;;
+  }
+
+  dimension: computer_name {
+    type: string
+    sql: ${TABLE}.computer_name ;;
   }
 
   dimension_group: error_occurred {
@@ -25,20 +31,9 @@ view: crashlogs {
     sql: ${TABLE}.error_occurred_at ;;
   }
 
-  dimension: site_id {
-    type: number
-    sql: ${TABLE}.site_id ;;
-  }
-
-  dimension: computer_name {
+  dimension: foldername {
     type: string
-    sql: ${TABLE}.computer_name ;;
-  }
-  dimension: computer_name_site {
-    type: string
-    sql: IF(SUBSTRING(${TABLE}.computer_name, 6, 1) = "-",
-          LEFT(${TABLE}.computer_name,5),
-          ${TABLE}.computer_name);;
+    sql: ${TABLE}.foldername ;;
   }
 
   dimension: game_name {
@@ -46,19 +41,24 @@ view: crashlogs {
     sql: ${TABLE}.game_name ;;
   }
 
-  dimension: memory_in_use {
-    type: number
-    sql: ${TABLE}.memory_in_use ;;
-  }
-
   dimension: game_version {
     type: string
     sql: ${TABLE}.game_version ;;
   }
 
-  dimension: zendesk_ticket_id {
+  dimension: memory_in_use {
     type: number
-    sql: ${TABLE}.zendesk_ticket_id ;;
+    sql: ${TABLE}.memory_in_use ;;
+  }
+
+  dimension: site_id {
+    type: number
+    sql: ${TABLE}.site_id ;;
+  }
+
+  dimension: site_name_from_computer_name {
+    type: number
+    sql: substring(computer_name,0,5) ;;
   }
 
   dimension: stack_trace {
@@ -66,13 +66,18 @@ view: crashlogs {
     sql: ${TABLE}.stack_trace ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [analysis_version, computer_name, error_occurred_time, foldername, game_name, game_version, memory_in_use, site_id, zendesk_ticket_id]
+  dimension: zendesk_ticket_id {
+    type: number
+    sql: ${TABLE}.zendesk_ticket_id ;;
   }
 
-  measure: max {
-    type: max
-    drill_fields: [analysis_version, computer_name, error_occurred_time, foldername, game_name, game_version, memory_in_use, site_id, zendesk_ticket_id]
+  dimension: unity_version {
+    type: string
+    sql: ${TABLE}.unity_version ;;
+  }
+
+  measure: count {
+    type: count
+    drill_fields: [error_occurred_time, zendesk_ticket_id, game_name, game_version, unity_version, computer_name, site_id, foldername]
   }
 }

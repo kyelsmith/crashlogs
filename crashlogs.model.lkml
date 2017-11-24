@@ -6,21 +6,21 @@ include: "*.view"
 # include all the dashboards
 include: "*.dashboard"
 
-explore: crashlogs {
-  join: zendesk_problems {
-    type: left_outer
-    sql_on: ${crashlogs.zendesk_ticket_id} = ${zendesk_problems.zendesk_ticket_id} ;;
-    relationship: many_to_one
-  }
-}
+#explore: crashlogs {
+#  join: zendesk_problems {
+#    type: left_outer
+#    sql_on: ${crashlogs.zendesk_ticket_id} = ${zendesk_problems.zendesk_ticket_id} ;;
+#    relationship: many_to_one
+#  }
+#}
 
-explore: identifiers {
-  join: zendesk_problems {
-    type: left_outer
-    sql_on: ${identifiers.zendesk_ticket_id} = ${zendesk_problems.zendesk_ticket_id};;
-    relationship: many_to_one
-  }
-}
+#explore: identifiers {
+#  join: zendesk_problems {
+#    type: left_outer
+#    sql_on: ${identifiers.zendesk_ticket_id} = ${zendesk_problems.zendesk_ticket_id};;
+#    relationship: many_to_one
+#  }
+#}
 
 explore: zendesk_problems {
   join: identifiers {
