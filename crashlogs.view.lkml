@@ -38,7 +38,7 @@ view: crashlogs {
 
   dimension: game_name {
     type: string
-    sql: ${TABLE}.game_name ;;
+    sql: SUBSTRING(${TABLE}.game_name, LOCATE("\\",${TABLE}.game_name)+1,LENGTH(${TABLE}.game_name)-LOCATE("\\",${TABLE}.game_name));;
   }
 
   dimension: game_version {
