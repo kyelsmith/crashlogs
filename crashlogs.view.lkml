@@ -57,8 +57,8 @@ view: crashlogs {
   }
 
   dimension: site_name_from_computer_name {
-    type: number
-    sql: substring(computer_name,0,5) ;;
+    type: string
+    sql: SUBSTRING(computer_name, 1, 5) ;;
   }
 
   dimension: stack_trace {
@@ -78,6 +78,6 @@ view: crashlogs {
 
   measure: count {
     type: count
-    drill_fields: [error_occurred_time, zendesk_ticket_id, game_name, game_version, unity_version, computer_name, site_id, foldername]
+    drill_fields: [error_occurred_time, zendesk_ticket_id, game_name, game_version, unity_version, computer_name, site_name_from_computer_name, foldername]
   }
 }
