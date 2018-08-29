@@ -3,9 +3,6 @@ connection: "crashlogs-tincandev"
 # include all the views
 include: "*.view"
 
-# include all the dashboards
-include: "*.dashboard"
-
 #explore: crashlogs {
 #  join: zendesk_problems {
 #    type: left_outer
@@ -23,6 +20,7 @@ include: "*.dashboard"
 #}
 
 explore: zendesk_problems {
+  label: "CrashLogs"
   join: identifiers {
     type: left_outer
     sql_on: ${zendesk_problems.zendesk_ticket_id} = ${identifiers.zendesk_ticket_id} ;;
